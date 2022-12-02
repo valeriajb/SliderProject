@@ -3,26 +3,42 @@ const btnNext = document.querySelector(".next");
 const sliderContainer = document.querySelector(".slider");
 const imagesSlider = document.querySelectorAll(".image");
 const groupItems = document.querySelectorAll(".itemSlider");
-const itemSlider = document.querySelector(".itemSlider");
 let indexPhoto = 1;
 let numberImages = imagesSlider.length;
+
+groupItems[0].style.backgroundColor="white"
+
+const barColor=(indexPhoto)=>{ 
+  remove()
+  groupItems[indexPhoto-1].style.backgroundColor="white"
+}
+const remove = () => {
+  groupItems.forEach((item) => {
+    item.style.backgroundColor = "transparent";
+  });
+};
 
 const nextPhotoSlider = () => {
   sliderContainer.style.transform = `translateX(-${indexPhoto * 800}px)`;
   indexPhoto++;
+  barColor(indexPhoto)
 };
 
 const prevPhotoSlider = () => {
   sliderContainer.style.transform = `translateX(-${(indexPhoto - 1) * 800}px)`;
+  barColor(indexPhoto)
   indexPhoto--;
 };
 const getFirstPhoto = () => {
   sliderContainer.style.transform = `translatex(0px)`;
   indexPhoto = 1;
+  barColor(indexPhoto)
 };
 const getLastPhoto = () => {
-  sliderContainer.style.transform = `translatex(-${(indexPhoto + 3) * 800}px)`;
+  sliderContainer.style.transform = `translateX(-${(indexPhoto + 3) * 800}px)`;
   indexPhoto = 3;
+  barColor(indexPhoto+1)
+
 };
 btnNext.addEventListener("click", () => {
   indexPhoto >= numberImages ? getFirstPhoto() : nextPhotoSlider();
@@ -33,12 +49,6 @@ btnNext.addEventListener("click", () => {
 btnPrev.addEventListener("click", () => {
   indexPhoto < 1 ? getLastPhoto() : prevPhotoSlider();
 });
-
-const remove = () => {
-  groupItems.forEach((item) => {
-    item.style.backgroundColor = "transparent";
-  });
-};
 
 {
   groupItems.forEach((item, index) => {
